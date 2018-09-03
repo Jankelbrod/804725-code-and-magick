@@ -32,7 +32,7 @@ var getMaxElement = function (arr) {
 
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, CLOUD_SHADOW);
-  renderCloud(ctx, CLOUD_X, CLOUD_Y,CLOUD_COLOR);
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_COLOR);
 
   ctx.fillStyle = '#000';
   ctx.fillText('Ура вы победили!', CLOUD_X + FONT_GAP, CLOUD_Y * 4);
