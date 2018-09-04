@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_LASTNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
@@ -14,34 +14,31 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
   .content
   .querySelector('.setup-similar-item');
 
-
-
 var randomData = function (quality) {
   var randomThing = quality[Math.floor(Math.random() * quality.length)];
   return randomThing;
 };
 
 var wizards = [{
-    name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
-    coatColor: randomData(COAT_COLOR),
-    eyesColor: randomData(EYES_COLOR)
+  name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
+  coatColor: randomData(COAT_COLOR),
+  eyesColor: randomData(EYES_COLOR)
   },
   {
-    name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
-    coatColor: randomData(COAT_COLOR),
-    eyesColor: randomData(EYES_COLOR)
+  name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
+  coatColor: randomData(COAT_COLOR),
+  eyesColor: randomData(EYES_COLOR)
   },
   {
-    name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
-    coatColor: randomData(COAT_COLOR),
-    eyesColor: randomData(EYES_COLOR)
+  name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
+  coatColor: randomData(COAT_COLOR),
+  eyesColor: randomData(EYES_COLOR)
   },
   {
-    name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
-    coatColor: randomData(COAT_COLOR),
-    eyesColor: randomData(EYES_COLOR)
-  },
-
+  name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
+  coatColor: randomData(COAT_COLOR),
+  eyesColor: randomData(EYES_COLOR)
+}
 ];
 
 var renderWizard = function (wizard) {
@@ -52,7 +49,7 @@ var renderWizard = function (wizard) {
   wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
   return wizardElement;
-}
+};
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < wizards.length; i++) {
