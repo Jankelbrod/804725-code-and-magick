@@ -23,18 +23,18 @@ var wizards = [{
   name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
   coatColor: randomData(COAT_COLOR),
   eyesColor: randomData(EYES_COLOR)
-  },
-  {
+},
+{
   name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
   coatColor: randomData(COAT_COLOR),
   eyesColor: randomData(EYES_COLOR)
-  },
-  {
+},
+{
   name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
   coatColor: randomData(COAT_COLOR),
   eyesColor: randomData(EYES_COLOR)
-  },
-  {
+},
+{
   name: randomData(WIZARD_NAMES) + ' ' + randomData(WIZARD_LASTNAMES),
   coatColor: randomData(COAT_COLOR),
   eyesColor: randomData(EYES_COLOR)
