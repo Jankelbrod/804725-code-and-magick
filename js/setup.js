@@ -23,16 +23,16 @@ var getRandomElement = function (arr) {
 };
 
 var generateWizards = function (quantity) {
-var wizards;
-for (var i = 0; i < quantity; i++) {
-wizards = {
-name: getRandomElement(wizardCharacteristic.name) + ' ' + getRandomElement(wizardCharacteristic.lastname),
-coatColor: getRandomElement(wizardCharacteristic.coatColor),
-eyeColor: getRandomElement(wizardCharacteristic.eyeColor)
-}
-wizard.push(wizards);
-}
-return wizard;
+  var wizards;
+  for (var i = 0; i < quantity; i++) {
+    wizards = {
+      name: getRandomElement(wizardCharacteristic.name) + ' ' + getRandomElement(wizardCharacteristic.lastname),
+      coatColor: getRandomElement(wizardCharacteristic.coatColor),
+      eyeColor: getRandomElement(wizardCharacteristic.eyeColor)
+    };
+    wizard.push(wizards);
+  }
+  return wizard;
 };
 
 var renderWizard = function (arr) {
@@ -47,7 +47,7 @@ var renderWizard = function (arr) {
 
 var fragment = document.createDocumentFragment();
 
-var createWizard = function() {
+var createWizard = function () {
   generateWizards(4);
   for (var i = 0; i < wizard.length; i++) {
     fragment.appendChild(renderWizard(wizard[i]));
