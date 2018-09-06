@@ -1,7 +1,7 @@
 'use strict';
 
 var wizards = [];
-var wizardsQuantity = 4;
+var WIZARDS_QUANTITY = 4;
 
 var wizardCharacteristic = {
   NAME: ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
@@ -47,7 +47,7 @@ var renderWizard = function (wizard) {
 var fragment = document.createDocumentFragment();
 
 var createWizards = function () {
-  generateWizards(wizardsQuantity);
+  generateWizards(WIZARDS_QUANTITY);
   for (var i = 0; i < wizards.length; i++) {
     fragment.appendChild(renderWizard(wizards[i]));
   }
