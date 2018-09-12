@@ -81,9 +81,8 @@ createWizards();
 var onPopupEscPress = function (evt) {
   if (userName === document.activeElement) {
     return evt;
-  }
-  if (evt.keyCode === ESC_KEYCODE) {
-    return closePopup();
+  } else if (evt.keyCode === ESC_KEYCODE) {
+    return void closePopup();
   }
 };
 // Открывает окно персонажа
