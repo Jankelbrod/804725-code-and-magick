@@ -1,10 +1,10 @@
 'use strict';
 
 // Массив готовых магов
-//var wizards = [];
+// var wizards = [];
 
 // Количество магов, отрисовываемых на странице
-//var WIZARDS_QUANTITY = 4;
+// var WIZARDS_QUANTITY = 4;
 
 // Цвета мантии, глаз и фаербола
 var COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
@@ -28,7 +28,7 @@ var eyesColor = setupWizard.querySelector('.wizard-eyes');
 var fireball = document.querySelector('.setup-fireball-wrap');
 
 // Описание мага: имя, фамилия, цвет мантии и цвет глаз
-/*var wizardCharacteristic = {
+/* var wizardCharacteristic = {
   NAME: ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
   LASTNAME: ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'],
 };
@@ -80,11 +80,10 @@ createWizards();
 // Обработчик закрытия окна по нажатию на Esc проверяет, наведен ли на поле ввода имени фокус
 var onPopupEscPress = function (evt) {
   if (userName === document.activeElement) {
-    return evt;
-    } else {
+  return evt;
+  }
   if (evt.keyCode === ESC_KEYCODE) {
     closePopup();
-    }
   }
 };
 // Открывает окно персонажа
@@ -95,8 +94,8 @@ var openPopup = function () {
 
 // Закрывет окно персонажа
 var closePopup = function () {
-    userDialog.classList.add('hidden');
-    document.removeEventListener('keydown', onPopupEscPress);
+  userDialog.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
 };
 
 // Обработчик события, который открывает окно персонажа при нажатии кнопкой мыши
@@ -129,7 +128,7 @@ var changeColor = function (arr) {
 // Меняем цвет мантии при нажатии кнопки мыши
 coatColor.addEventListener('click', function () {
   var randomColor = changeColor(COAT_COLOR);
-  coatColor.style.fill =  randomColor;
+  coatColor.style.fill = randomColor;
   document.getElementsByName('coat-color')[0].value = randomColor;
 });
 
