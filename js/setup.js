@@ -1,17 +1,37 @@
 'use strict';
 
-var wizards = [];
-var WIZARDS_QUANTITY = 4;
+// Массив готовых магов
+//var wizards = [];
 
-var wizardCharacteristic = {
+// Количество магов, отрисовываемых на странице
+//var WIZARDS_QUANTITY = 4;
+
+// Цвета мантии, глаз и фаербола
+var COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var EYE_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
+var FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+
+// Коды кнопок
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+// Находим на странице элементы окна настройки персонажа и запсываем их в переменные для дальнейшей работы
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = document.querySelector('.setup-close');
+var userDialog = document.querySelector('.setup');
+var userName = document.querySelector('.setup-user-name');
+
+// Находим на странице элементы волшебника и фаербол
+var setupWizard = document.querySelector('.setup-wizard');
+var coatColor = setupWizard.querySelector('.wizard-coat');
+var eyesColor = setupWizard.querySelector('.wizard-eyes');
+var fireball = document.querySelector('.setup-fireball-wrap');
+
+// Описание мага: имя, фамилия, цвет мантии и цвет глаз
+/*var wizardCharacteristic = {
   NAME: ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'],
   LASTNAME: ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'],
-  COAT_COLOR: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
-  EYE_COLOR: ['black', 'red', 'blue', 'yellow', 'green']
 };
-
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
 
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 
@@ -54,4 +74,76 @@ var createWizards = function () {
   similarListElement.appendChild(fragment);
 };
 createWizards();
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
+//userDialog.querySelector('.setup-similar').classList.remove('hidden');
+*/
+
+// Обработчик закрытия окна по нажатию на Esc проверяет, наведен ли на поле ввода имени фокус
+var onPopupEscPress = function (evt) {
+  if (userName === document.activeElement) {
+    return evt;
+    } else {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+    }
+  }
+};
+// Открывает окно персонажа
+var openPopup = function () {
+  userDialog.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+// Закрывет окно персонажа
+var closePopup = function () {
+    userDialog.classList.add('hidden');
+    document.removeEventListener('keydown', onPopupEscPress);
+};
+
+// Обработчик события, который открывает окно персонажа при нажатии кнопкой мыши
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+// Обработчик события, который открывает окно персонажа при нажатии кнопки Enter
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+// Обработчик события, который закрывает окно персонажа при нажатии кнопкой мыши
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+// Если фокус на крестике, окно персонажа закрывается при нажатии Enter
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+// Функция выбора случайного цвета из массива
+var changeColor = function (arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+
+// Меняем цвет мантии при нажатии кнопки мыши
+coatColor.addEventListener('click', function () {
+  var randomColor = changeColor(COAT_COLOR);
+  coatColor.style.fill =  randomColor;
+  document.getElementsByName('coat-color')[0].value = randomColor;
+});
+
+// Меняем цвет глаз при нажатии кнопки мыши
+eyesColor.addEventListener('click', function () {
+  var randomColor = changeColor(EYE_COLOR);
+  eyesColor.style.fill = randomColor;
+  document.getElementsByName('eyes-color')[0].value = randomColor;
+});
+
+// Меняем цвет фаербола при нажатии кнопки мыши
+fireball.addEventListener('click', function () {
+  var randomColor = changeColor(FIREBALL_COLOR);
+  fireball.style.fill = randomColor;
+  document.getElementsByName('fireball-color')[0].value = randomColor;
+});
+
