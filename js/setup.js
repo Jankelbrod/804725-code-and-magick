@@ -79,7 +79,7 @@ createWizards();
 
 // Обработчик закрытия окна по нажатию на Esc проверяет, наведен ли на поле ввода имени фокус
 var onPopupEscPress = function (evt) {
-  if (userName != document.activeElement && evt.keyCode === ESC_KEYCODE) {
+  if (userName !== document.activeElement && evt.keyCode === ESC_KEYCODE) {
     closePopup();
   }
 };
