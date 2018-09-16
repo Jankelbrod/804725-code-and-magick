@@ -15,6 +15,7 @@ window.util = (function () {
       if (evt.keyCode === ENTER_KEYCODE) {
         action();
       }
-    }
+    },
+    ESC_KEYCODE: ESC_KEYCODE
   };
-}) ();
+})();
