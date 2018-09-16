@@ -12,7 +12,7 @@
     getRandomElement: function (arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
-  }
+  };
   // Открывает окно персонажа
   var openPopup = function () {
     setup.classList.remove('hidden');
