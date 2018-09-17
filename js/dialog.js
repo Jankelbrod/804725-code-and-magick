@@ -77,7 +77,7 @@
       setup.style.top = (setup.offsetTop - shift.y) + 'px';
       setup.style.left = (setup.offsetLeft - shift.x) + 'px';
 
-      };
+    };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
@@ -86,16 +86,16 @@
       document.removeEventListener('mouseup', onMouseUp);
 
       if (dragged) {
-        var onClickPreventDefault = function (evt) {
-          evt.preventDefault();
-          dialogHandler.removeEventListener('click', onClickPreventDefault)
+        var onClickPreventDefault = function (dragEvt) {
+          dragEvt.preventDefault();
+          dialogHandler.removeEventListener('click', onClickPreventDefault);
         };
         dialogHandler.addEventListener('click', onClickPreventDefault);
       }
 
-      };
+    };
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-    });
-  })();
+  });
+})();
