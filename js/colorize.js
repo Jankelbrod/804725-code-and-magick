@@ -1,6 +1,7 @@
 'use strict';
 
-window.colorize = function (element, colors, inputName) {
+(function () {
+  window.colorize = function (element, colors, selector) {
   element.addEventListener('click', function () {
     var color = window.dialog.getRandomElement(colors);
     if (element.tagName.toLowerCase() === 'div') {
@@ -8,6 +9,7 @@ window.colorize = function (element, colors, inputName) {
     } else {
       element.style.fill = color;
     }
-    window.dialog.setup.querySelector(inputName).value = color;
+      selector.value = color;
   });
 };
+})();

@@ -7,12 +7,8 @@
   var setupClose = setup.querySelector('.setup-close');
   var userName = setup.querySelector('.setup-user-name');
 
-  window.dialog = {
-    setup: setup,
-    getRandomElement: function (arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-  };
+  window.dialogSetup = setup;
+
   // Открывает окно персонажа
   var openPopup = function () {
     setup.classList.remove('hidden');
@@ -47,6 +43,6 @@
   });
   // Если фокус на крестике, окно персонажа закрывается при нажатии Enter
   setupClose.addEventListener('keydown', function (evt) {
-    window.util.isEscEvent(evt, closePopup);
+    window.util.isEnterEvent(evt, closePopup);
   });
 })();
