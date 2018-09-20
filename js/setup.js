@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  // Массив готовых магов
-  var wizards = [];
   // Количество магов, отрисовываемых на странице
   var WIZARDS_QUANTITY = 4;
   // Находим на странице элементы волшебника и фаербол
@@ -10,9 +8,8 @@
   var coatColor = setupWizard.querySelector('.wizard-coat');
   var eyesColor = setupWizard.querySelector('.wizard-eyes');
   var fireball = window.dialogSetup.querySelector('.setup-fireball-wrap');
-  // Описание мага: имя, фамилия, цвет мантии, цвет глаз, цвет фаербола
-  var NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var LASTNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+
+  // Описание мага: цвет мантии, цвет глаз, цвет фаербола
   var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
@@ -20,17 +17,6 @@
   var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
-
-  var generateWizards = function (quantity) {
-    for (var i = 0; i < quantity; i++) {
-      wizards.push({
-        fullName: window.util.getRandomElement(NAMES) + ' ' + window.util.getRandomElement(LASTNAMES),
-        coatColor: window.util.getRandomElement(COAT_COLORS),
-        eyeColor: window.util.getRandomElement(EYES_COLORS)
-      });
-    }
-    return wizards;
-  };
 
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -44,7 +30,6 @@
   // Открываем блок с похожими магами
   window.dialogSetup.querySelector('.setup-similar').classList.remove('hidden');
 
-
   // Меняем цвет мантии при нажатии кнопки мыши
   window.colorize(coatColor, COAT_COLORS, window.dialogSetup.querySelector('input[name="coat-color"]'));
   // Меняем цвет глаз при нажатии кнопки мыши
@@ -54,15 +39,15 @@
 
   var form = window.dialogSetup.querySelector('.setup-wizard-form');
   form.addEventListener('submit', function (evt) {
-    window.save(new FormData(form), function (response) {
-      window.dialogSetup.classList.add('hidden')
+    window.save(new FormData(form), function () {
+      window.dialogSetup.classList.add('hidden');
     }, errorHandler);
     evt.preventDefault();
   });
 
   var successHandler = function (wizards) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < WIZARDS_QUANTITY; i++) {
       fragment.appendChild(renderWizard(window.util.getRandomElement(wizards)));
     }
     similarListElement.appendChild(fragment);
