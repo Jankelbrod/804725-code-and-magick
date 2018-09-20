@@ -35,23 +35,15 @@
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
-    wizardElement.querySelector('.setup-similar-label').textContent = wizard.fullName;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyeColor;
+    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
 
     return wizardElement;
   };
   // Открываем блок с похожими магами
   window.dialogSetup.querySelector('.setup-similar').classList.remove('hidden');
-  var createWizards = function () {
-    var fragment = document.createDocumentFragment();
-    generateWizards(WIZARDS_QUANTITY);
-    for (var i = 0; i < wizards.length; i++) {
-      fragment.appendChild(renderWizard(wizards[i]));
-    }
-    similarListElement.appendChild(fragment);
-  };
-  createWizards();
+
 
   // Меняем цвет мантии при нажатии кнопки мыши
   window.colorize(coatColor, COAT_COLORS, window.dialogSetup.querySelector('input[name="coat-color"]'));
@@ -59,4 +51,37 @@
   window.colorize(eyesColor, EYES_COLORS, window.dialogSetup.querySelector('input[name="eyes-color"]'));
   // Меняем цвет фаербола при нажатии кнопки мыши
   window.colorize(fireball, FIREBALL_COLORS, window.dialogSetup.querySelector('input[name="fireball-color"]'));
+
+  var form = window.dialogSetup.querySelector('.setup-wizard-form');
+  form.addEventListener('submit', function (evt) {
+    window.save(new FormData(form), function (response) {
+      window.dialogSetup.classList.add('hidden')
+    }, errorHandler);
+    evt.preventDefault();
+  });
+
+  var successHandler = function (wizards) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < 4; i++) {
+      fragment.appendChild(renderWizard(window.util.getRandomElement(wizards)));
+    }
+    similarListElement.appendChild(fragment);
+
+    window.dialogSetup.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 386px 272px; text-align: center; background-color: #e32636; border-radius: 0% 0% 50% 50%; padding: 30px;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.bottom = '67px';
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.load(successHandler, errorHandler);
 })();
