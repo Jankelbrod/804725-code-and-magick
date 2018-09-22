@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  // Массив готовых магов
-  var wizards = [];
   // Количество магов, отрисовываемых на странице
   var WIZARDS_QUANTITY = 4;
   // Находим на странице элементы волшебника и фаербол
@@ -10,9 +8,8 @@
   var coatColor = setupWizard.querySelector('.wizard-coat');
   var eyesColor = setupWizard.querySelector('.wizard-eyes');
   var fireball = window.dialogSetup.querySelector('.setup-fireball-wrap');
-  // Описание мага: имя, фамилия, цвет мантии, цвет глаз, цвет фаербола
-  var NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var LASTNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+
+  // Описание мага: цвет мантии, цвет глаз, цвет фаербола
   var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
@@ -21,37 +18,17 @@
     .content
     .querySelector('.setup-similar-item');
 
-  var generateWizards = function (quantity) {
-    for (var i = 0; i < quantity; i++) {
-      wizards.push({
-        fullName: window.util.getRandomElement(NAMES) + ' ' + window.util.getRandomElement(LASTNAMES),
-        coatColor: window.util.getRandomElement(COAT_COLORS),
-        eyeColor: window.util.getRandomElement(EYES_COLORS)
-      });
-    }
-    return wizards;
-  };
-
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
-    wizardElement.querySelector('.setup-similar-label').textContent = wizard.fullName;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyeColor;
+    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
 
     return wizardElement;
   };
   // Открываем блок с похожими магами
   window.dialogSetup.querySelector('.setup-similar').classList.remove('hidden');
-  var createWizards = function () {
-    var fragment = document.createDocumentFragment();
-    generateWizards(WIZARDS_QUANTITY);
-    for (var i = 0; i < wizards.length; i++) {
-      fragment.appendChild(renderWizard(wizards[i]));
-    }
-    similarListElement.appendChild(fragment);
-  };
-  createWizards();
 
   // Меняем цвет мантии при нажатии кнопки мыши
   window.colorize(coatColor, COAT_COLORS, window.dialogSetup.querySelector('input[name="coat-color"]'));
@@ -59,4 +36,37 @@
   window.colorize(eyesColor, EYES_COLORS, window.dialogSetup.querySelector('input[name="eyes-color"]'));
   // Меняем цвет фаербола при нажатии кнопки мыши
   window.colorize(fireball, FIREBALL_COLORS, window.dialogSetup.querySelector('input[name="fireball-color"]'));
+
+  var form = window.dialogSetup.querySelector('.setup-wizard-form');
+  form.addEventListener('submit', function (evt) {
+    window.save(new FormData(form), function () {
+      window.dialogSetup.classList.add('hidden');
+    }, errorHandler);
+    evt.preventDefault();
+  });
+
+  var successHandler = function (wizards) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < WIZARDS_QUANTITY; i++) {
+      fragment.appendChild(renderWizard(window.util.getRandomElement(wizards)));
+    }
+    similarListElement.appendChild(fragment);
+
+    window.dialogSetup.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 386px 272px; text-align: center; background-color: #e32636; border-radius: 0% 0% 50% 50%; padding: 30px;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.bottom = '67px';
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.load(successHandler, errorHandler);
 })();
